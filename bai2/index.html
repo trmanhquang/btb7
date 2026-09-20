@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Đánh Giá Học Tập Sinh Viên ICTU</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* Nền chuyển màu Gradient hiện đại */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 35px 30px;
+            border-radius: 16px;
+            /* Đổ bóng mịn nổi bật */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 25px;
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+
+        /* Hiệu ứng Viền đổi màu và Nổi bật khi nhấp chuột vào ô nhập */
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+        }
+
+        /* Hiệu ứng rà chuột và bấm nút */
+        button:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 10px;
+            min-height: 80px;
+            background-color: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            font-size: 15px;
+            color: #2d3748;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        /* Thẻ hiển thị xếp loại nổi bật */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+            margin-left: 5px;
+        }
+        .bg-xuatsac { background-color: #38a169; }
+        .bg-kha { background-color: #3182ce; }
+        .bg-trungbinh { background-color: #dd6b20; }
+        .bg-yeu { background-color: #e53e3e; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Đánh Giá Học Tập ICTU</h2>
+
+        <div class="form-group">
+            <label for="studentName">Họ và tên sinh viên</label>
+            <input type="text" id="studentName" placeholder="Nhập họ tên...">
+        </div>
+
+        <div class="form-group">
+            <label for="score">Điểm số (0 - 10)</label>
+            <input type="number" id="score" placeholder="Nhập điểm..." min="0" max="10" step="0.1">
+        </div>
+
+        <div class="form-group">
+            <button id="btnResult" onclick="danhGia()">Xem kết quả</button>
+        </div>
+
+        <div id="result" class="result-box">
+            <i>Kết quả sẽ hiển thị ở đây...</i>
+        </div>
+    </div>
+
+    <script>
+        function danhGia() {
+            const name = document.getElementById('studentName').value.trim();
+            const scoreVal = document.getElementById('score').value;
+            const resultBox = document.getElementById('result');
+
+            if (!name || scoreVal === '') {
+                resultBox.style.borderColor = '#e53e3e';
+                resultBox.innerHTML = '<span style="color: #e53e3e; font-weight: 600;">⚠️ Vui lòng nhập đầy đủ họ tên và điểm!</span>';
+                return;
+            }
+
+            const score = parseFloat(scoreVal);
+            let xepLoai = '';
+            let bgClass = '';
+
+            if (score < 0 || score > 10) {
+                resultBox.style.borderColor = '#e53e3e';
+                resultBox.innerHTML = '<span style="color: #e53e3e; font-weight: 600;">⚠️ Điểm không hợp lệ (Phải từ 0 đến 10)!</span>';
+                return;
+            } else if (score >= 8.5) {
+                xepLoai = 'Xuất sắc';
+                bgClass = 'bg-xuatsac';
+            } else if (score >= 7.0) {
+                xepLoai = 'Khá';
+                bgClass = 'bg-kha';
+            } else if (score >= 5.0) {
+                xepLoai = 'Trung bình';
+                bgClass = 'bg-trungbinh';
+            } else {
+                xepLoai = 'Yếu / Chưa đạt';
+                bgClass = 'bg-yeu';
+            }
+
+            resultBox.style.borderColor = '#667eea';
+            resultBox.style.backgroundColor = '#ffffff';
+            resultBox.innerHTML = `
+                📌 <strong>Sinh viên:</strong> ${name}<br>
+                🎯 <strong>Điểm số:</strong> ${score}<br>
+                🏆 <strong>Xếp loại:</strong> <span class="badge ${bgClass}">${xepLoai}</span>
+            `;
+        }
+    </script>
+
+</body>
+</html>
