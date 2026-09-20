@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Đồ Uống</title>
+    <style>
+        /* 1 & 2. Body background #f5f5f5 & Font Arial */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        /* Tiêu đề trang */
+        .site-title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Khung chứa các card đồ uống */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        /* 3 -> 8. Product card cơ bản */
+        .product-card {
+            position: relative; /* Dùng để định vị nhãn "HOT" */
+            width: 320px;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-sizing: border-box;
+            text-align: center;
+            /* TRANG TRÍ: Hiệu ứng nổi card */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* TRANG TRÍ: Di chuột vào card sẽ nhích lên và đổ bóng */
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* TRANG TRÍ: Nhãn Bán Chạy / Hot */
+        .badge-hot {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff3838;
+            color: white;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* TRANG TRÍ: Khung bao ảnh để cắt viền khi phóng to */
+        .img-box {
+            overflow: hidden;
+            border-radius: 8px;
+            height: 220px;
+        }
+
+        /* 9. Ảnh width 100% + TRANG TRÍ phóng to ảnh khi hover */
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08); /* Phóng to nhẹ 8% */
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin: 15px 0 10px;
+            color: #333;
+        }
+
+        /* 10. Giá màu đỏ, chữ đậm */
+        .product-price {
+            color: red;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* 11 & 12. Button màu xanh + TRANG TRÍ đổ bóng & viền tròn */
+        .btn-buy {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px; /* Bo tròn kiểu viên thuốc */
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-buy:hover {
+            background: linear-gradient(135deg, #0056b3, #003d80);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="site-title">Menu Đồ Uống Hot</h1>
+
+    <div class="product-list">
+        <!-- Đồ uống 1: Có nhãn Bán chạy -->
+        <div class="product-card">
+            <span class="badge-hot">Bán chạy</span>
+            <div class="img-box">
+                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80" alt="Trà sữa Matcha">
+            </div>
+            <h3 class="product-title">Trà Sữa Matcha Trân Châu</h3>
+            <p class="product-price">45.000 đ</p>
+            <button class="btn-buy">Đặt ngay</button>
+        </div>
+
+        <!-- Đồ uống 2 -->
+        <div class="product-card">
+            <div class="img-box">
+                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80" alt="Cà phê Muối">
+            </div>
+            <h3 class="product-title">Cà Phê Muối Kem Béo</h3>
+            <p class="product-price">35.000 đ</p>
+            <button class="btn-buy">Đặt ngay</button>
+        </div>
+
+        <!-- Đồ uống 3: Có nhãn Mới -->
+        <div class="product-card">
+            <span class="badge-hot" style="background-color: #28a745;">Mới</span>
+            <div class="img-box">
+                <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80" alt="Trà Đào Cam Sả">
+            </div>
+            <h3 class="product-title">Trà Đào Cam Sả</h3>
+            <p class="product-price">40.000 đ</p>
+            <button class="btn-buy">Đặt ngay</button>
+        </div>
+    </div>
+
+</body>
+</html>
